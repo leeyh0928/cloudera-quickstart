@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  cloudera:
+    image: loganseo/cloudera-quickstart-docker:cdh6.3.2
+    privileged: true
+    hostname: quickstart.cloudera
+    command: /tmp/cdh_startup.sh
+    ports:
+      - "8888:8888"   # Hue
+      - "8050:8050"   # Kudu Tablet Server
+      - "8051:8051"   # Kudu Master
+      - "25000:25000" # Apache Impala Daemon
+      - "25010:25010" # Apache Impala StateStore
+      - "25020:25020" # Apache Impala Catalog
+      - "9870:9870"   # Namenode information
+      - "8088:8088"   # YARN Resource Manager - All Applications
+      - "50070:50070"
+      - "14000:14000"
+      # - "3306:3306"
+    tty: true
+    stdin_open: true
+    volumes: 
+      - ./shared:/media/shared_from_local
+    mem_limit: "4g"
